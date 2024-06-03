@@ -70,21 +70,4 @@ class LogcatActivity : BaseActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_logcat, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.copy_all -> {
-            Utils.setClipboard(this, binding.tvLogcat.text.toString())
-            toast(R.string.toast_success)
-            true
-        }
-        R.id.clear_all -> {
-            logcat(true)
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
 }

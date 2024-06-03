@@ -122,27 +122,4 @@ class UserAssetUrlActivity : BaseActivity() {
         return true
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.action_server, menu)
-        del_config = menu.findItem(R.id.del_config)
-        save_config = menu.findItem(R.id.save_config)
-
-        if (editAssetId.isEmpty()) {
-            del_config?.isVisible = false
-        }
-
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.del_config -> {
-            deleteServer()
-            true
-        }
-        R.id.save_config -> {
-            saveServer()
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
 }

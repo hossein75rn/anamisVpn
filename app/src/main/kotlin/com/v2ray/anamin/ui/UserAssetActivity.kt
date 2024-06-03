@@ -64,29 +64,6 @@ class UserAssetActivity : BaseActivity() {
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_asset, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.add_file -> {
-            showFileChooser()
-            true
-        }
-
-        R.id.add_url -> {
-            val intent = Intent(this, UserAssetUrlActivity::class.java)
-            startActivity(intent)
-            true
-        }
-        R.id.download_file -> {
-            downloadGeoFiles()
-            true
-        }
-
-        else -> super.onOptionsItemSelected(item)
-    }
 
     private fun showFileChooser() {
         val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

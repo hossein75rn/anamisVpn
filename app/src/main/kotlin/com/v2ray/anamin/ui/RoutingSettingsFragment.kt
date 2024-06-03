@@ -53,34 +53,6 @@ class RoutingSettingsFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_routing, menu)
-        return super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.save_routing -> {
-            saveRouting()
-            true
-        }
-        R.id.del_routing -> {
-            binding.etRoutingContent.text = null
-            true
-        }
-        R.id.scan_replace -> {
-            scanQRcode(true)
-            true
-        }
-        R.id.scan_append -> {
-            scanQRcode(false)
-            true
-        }
-        R.id.default_rules -> {
-            setDefaultRules()
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
 
     private fun saveRouting() {
         val content = binding.etRoutingContent.text.toString()

@@ -575,34 +575,4 @@ class ServerActivity : BaseActivity() {
         return true
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.action_server, menu)
-        val delButton = menu.findItem(R.id.del_config)
-        val saveButton = menu.findItem(R.id.save_config)
-
-        if (editGuid.isNotEmpty()) {
-            if (isRunning) {
-                delButton?.isVisible = false
-                saveButton?.isVisible = false
-            }
-        } else {
-            delButton?.isVisible = false
-        }
-
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.del_config -> {
-            deleteServer()
-            true
-        }
-
-        R.id.save_config -> {
-            saveServer()
-            true
-        }
-
-        else -> super.onOptionsItemSelected(item)
-    }
 }

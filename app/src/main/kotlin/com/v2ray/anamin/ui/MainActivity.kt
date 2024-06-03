@@ -48,7 +48,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.util.concurrent.TimeUnit
 
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val adapter by lazy { MainRecyclerAdapter(this) }
@@ -68,7 +68,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val view = binding.root
         setContentView(view)
         title = getString(R.string.title_server)
-        setSupportActionBar(binding.toolbar)
 
         binding.fab.setOnClickListener {
             if (mainViewModel.isRunning.value == true) {
@@ -100,13 +99,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val callback = SimpleItemTouchHelperCallback(adapter)
         mItemTouchHelper = ItemTouchHelper(callback)
         mItemTouchHelper?.attachToRecyclerView(binding.recyclerView)
-
-
-        val toggle = ActionBarDrawerToggle(
-                this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        binding.navView.setNavigationItemSelectedListener(this)
 
 
         setupViewModel()
@@ -226,151 +218,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         super.onPause()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.import_qrcode -> {
-            importQRcode(true)
-            true
-        }
-        R.id.import_clipboard -> {
-            importClipboard()
-            true
-        }
-        R.id.import_manually_vmess -> {
-            importManually(EConfigType.VMESS.value)
-            true
-        }
-        R.id.import_manually_vless -> {
-            importManually(EConfigType.VLESS.value)
-            true
-        }
-        R.id.import_manually_ss -> {
-            importManually(EConfigType.SHADOWSOCKS.value)
-            true
-        }
-        R.id.import_manually_socks -> {
-            importManually(EConfigType.SOCKS.value)
-            true
-        }
-        R.id.import_manually_trojan -> {
-            importManually(EConfigType.TROJAN.value)
-            true
-        }
-        R.id.import_manually_wireguard -> {
-            importManually(EConfigType.WIREGUARD.value)
-            true
-        }
-        R.id.import_config_custom_clipboard -> {
-            importConfigCustomClipboard()
-            true
-        }
-        R.id.import_config_custom_local -> {
-            importConfigCustomLocal()
-            true
-        }
-        R.id.import_config_custom_url -> {
-            importConfigCustomUrlClipboard()
-            true
-        }
-        R.id.import_config_custom_url_scan -> {
-            importQRcode(false)
-            true
-        }
-
-//        R.id.sub_setting -> {
-//            startActivity<SubSettingActivity>()
-//            true
-//        }
-
-        R.id.sub_update -> {
-            importConfigViaSub()
-            true
-        }
-
-        R.id.export_all -> {
-            if (AngConfigManager.shareNonCustomConfigsToClipboard(this, mainViewModel.serverList) == 0) {
-                toast(R.string.toast_success)
-            } else {
-                toast(R.string.toast_failure)
-            }
-            true
-        }
-
-        R.id.ping_all -> {
-            mainViewModel.testAllTcping()
-            true
-        }
-
-        R.id.real_ping_all -> {
-            mainViewModel.testAllRealPing()
-            true
-        }
-
-        R.id.service_restart -> {
-            restartV2Ray()
-            true
-        }
-
-        R.id.del_all_config -> {
-            AlertDialog.Builder(this).setMessage(R.string.del_config_comfirm)
-                    .setPositiveButton(android.R.string.ok) { _, _ ->
-                        MmkvManager.removeAllServer()
-                        mainViewModel.reloadServerList()
-                    }
-                    .setNegativeButton(android.R.string.no) {_, _ ->
-                        //do noting
-                    }
-                    .show()
-            true
-        }
-        R.id.del_duplicate_config-> {
-            AlertDialog.Builder(this).setMessage(R.string.del_config_comfirm)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    mainViewModel.removeDuplicateServer()
-                }
-                .setNegativeButton(android.R.string.no) {_, _ ->
-                    //do noting
-                }
-                .show()
-            true
-        }
-        R.id.del_invalid_config -> {
-            AlertDialog.Builder(this).setMessage(R.string.del_config_comfirm)
-                .setPositiveButton(android.R.string.ok) { _, _ ->
-                    MmkvManager.removeInvalidServer()
-                    mainViewModel.reloadServerList()
-                }
-                .setNegativeButton(android.R.string.no) {_, _ ->
-                    //do noting
-                }
-                .show()
-            true
-        }
-        R.id.sort_by_test_results -> {
-            MmkvManager.sortByTestResults()
-            mainViewModel.reloadServerList()
-            true
-        }
-        R.id.filter_config -> {
-            mainViewModel.filterConfig(this)
-            true
-        }
-
-        else -> super.onOptionsItemSelected(item)
-    }
-
-    private fun importManually(createConfigType : Int) {
-        startActivity(
-            Intent()
-                .putExtra("createConfigType", createConfigType)
-                .putExtra("subscriptionId", mainViewModel.subscriptionId)
-                .setClass(this, ServerActivity::class.java)
-        )
-    }
 
     /**
      * import config from qrcode
@@ -661,31 +508,4 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return super.onKeyDown(keyCode, event)
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        when (item.itemId) {
-            //R.id.server_profile -> activityClass = MainActivity::class.java
-            R.id.sub_setting -> {
-                startActivity(Intent(this, SubSettingActivity::class.java))
-            }
-            R.id.settings -> {
-                startActivity(Intent(this, SettingsActivity::class.java)
-                        .putExtra("isRunning", mainViewModel.isRunning.value == true))
-            }
-            R.id.user_asset_setting -> {
-                startActivity(Intent(this, UserAssetActivity::class.java))
-            }
-            R.id.promotion -> {
-                Utils.openUri(this, "${Utils.decode(AppConfig.PromotionUrl)}?t=${System.currentTimeMillis()}")
-            }
-            R.id.logcat -> {
-                startActivity(Intent(this, LogcatActivity::class.java))
-            }
-            R.id.about-> {
-                startActivity(Intent(this, AboutActivity::class.java))
-            }
-        }
-        binding.drawerLayout.closeDrawer(GravityCompat.START)
-        return true
-    }
 }

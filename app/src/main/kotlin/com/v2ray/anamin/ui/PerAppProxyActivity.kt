@@ -181,60 +181,6 @@ class PerAppProxyActivity : BaseActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_bypass_list, menu)
-
-        val searchItem = menu.findItem(R.id.search_view)
-        if (searchItem != null) {
-            val searchView = searchItem.actionView as SearchView
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return false
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    filterProxyApp(newText!!)
-                    return false
-                }
-            })
-        }
-
-
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.select_all -> adapter?.let {
-            val pkgNames = it.apps.map { it.packageName }
-            if (it.blacklist.containsAll(pkgNames)) {
-                it.apps.forEach {
-                    val packageName = it.packageName
-                    adapter?.blacklist!!.remove(packageName)
-                }
-            } else {
-                it.apps.forEach {
-                    val packageName = it.packageName
-                    adapter?.blacklist!!.add(packageName)
-                }
-            }
-            it.notifyDataSetChanged()
-            true
-        } ?: false
-        R.id.select_proxy_app -> {
-            selectProxyApp()
-            true
-        }
-        R.id.import_proxy_app -> {
-            importProxyApp()
-            true
-        }
-        R.id.export_proxy_app -> {
-            exportProxyApp()
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
-
     private fun selectProxyApp() {
         toast(R.string.msg_downloading_content)
         val url = AppConfig.androidpackagenamelistUrl

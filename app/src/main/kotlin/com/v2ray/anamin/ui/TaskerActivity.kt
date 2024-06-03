@@ -94,23 +94,7 @@ class TaskerActivity : BaseActivity() {
         finish()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.action_server, menu)
-        val del_config = menu.findItem(R.id.del_config)
-        del_config?.isVisible = false
-        return super.onCreateOptionsMenu(menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.del_config -> {
-            true
-        }
-        R.id.save_config -> {
-            confirmFinish()
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
 
 }
 

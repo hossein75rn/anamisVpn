@@ -58,38 +58,6 @@ class ScannerActivity : BaseActivity(){
         finish()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_scanner, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.scan_code -> {
-            launchScan()
-            true
-        }
-        R.id.select_photo -> {
-            val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                Manifest.permission.READ_MEDIA_IMAGES
-            } else {
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            }
-            RxPermissions(this)
-                .request(permission)
-                .subscribe {
-                    if (it) {
-                        try {
-                            showFileChooser()
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                    } else
-                        toast(R.string.toast_permission_denied)
-                }
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
 
     private fun showFileChooser() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
