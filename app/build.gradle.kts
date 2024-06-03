@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.v2ray.ang"
+    namespace = "com.v2ray.anamin"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.v2ray.ang"
+        applicationId = "com.v2ray.anamin"
         minSdk = 21
         targetSdk = 34
         versionCode = 562
