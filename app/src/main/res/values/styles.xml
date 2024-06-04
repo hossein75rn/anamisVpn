@@ -1,9 +1,9 @@
 <resources>
 
     <style name="AppThemeDayNight" parent="Theme.AppCompat.DayNight">
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/splash</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/splash</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
         <item name="colorControlNormal">@color/colorAccent</item>
     </style>

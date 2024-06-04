@@ -10,4 +10,7 @@
 
     <color name="colorPrimary">#F5F5F5</color>
     <color name="colorAccent">#000000</color>
+    <color name="splash">#FFC107</color>
+    <color name="splash_light">#72FFC107</color>
+    <color name="black">#111010</color>
 </resources>

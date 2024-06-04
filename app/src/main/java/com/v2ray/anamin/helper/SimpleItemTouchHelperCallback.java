@@ -37,9 +37,9 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 
     public static final float ALPHA_FULL = 1.0f;
 
-    private final ItemTouchHelperAdapter mAdapter;
+    private final com.v2ray.anamin.helper.ItemTouchHelperAdapter mAdapter;
 
-    public SimpleItemTouchHelperCallback(ItemTouchHelperAdapter adapter) {
+    public SimpleItemTouchHelperCallback(com.v2ray.anamin.helper.ItemTouchHelperAdapter adapter) {
         mAdapter = adapter;
     }
 
@@ -101,9 +101,9 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
     public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
         // We only want the active item to change
         if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
-            if (viewHolder instanceof ItemTouchHelperViewHolder) {
+            if (viewHolder instanceof com.v2ray.anamin.helper.ItemTouchHelperViewHolder) {
                 // Let the view holder know that this item is being moved or dragged
-                ItemTouchHelperViewHolder itemViewHolder = (ItemTouchHelperViewHolder) viewHolder;
+                com.v2ray.anamin.helper.ItemTouchHelperViewHolder itemViewHolder = (com.v2ray.anamin.helper.ItemTouchHelperViewHolder) viewHolder;
                 itemViewHolder.onItemSelected();
             }
         }

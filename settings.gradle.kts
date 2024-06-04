@@ -3,6 +3,8 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven { setUrl("https://maven.google.com") }
+        maven { setUrl("https://jitpack.io") }
     }
 }
 dependencyResolutionManagement {
@@ -11,6 +13,8 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         jcenter()
+        maven { setUrl("https://maven.google.com") }
+        maven { setUrl("https://jitpack.io") }
     }
 }
 rootProject.name = "V2rayNG"

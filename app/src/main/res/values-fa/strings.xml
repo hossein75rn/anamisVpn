@@ -277,6 +277,9 @@
     </string-array>
     <string name="menu_item_add_asset">افزودن</string>
     <string name="menu_item_add_url">افزودن لینک</string>
+    <string name="password">کلمه عبور</string>
+    <string name="signin">ورود</string>
+    <string name="phone">شماره تلفن</string>
 
     <string-array name="ui_mode_night">
         <item>Follow system</item>

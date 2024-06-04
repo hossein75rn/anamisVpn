@@ -260,6 +260,9 @@
     <string name="title_pref_fragment_length">Fragment Length (min-max)</string>
     <string name="title_pref_fragment_interval">Fragment Interval (min-max)</string>
     <string name="title_pref_fragment_enabled">Enable Fragment</string>
+    <string name="password">کلمه عبور</string>
+    <string name="signin">ورود</string>
+    <string name="phone">شماره تلفن</string>
 
     <string-array name="share_method">
         <item>QRcode</item>

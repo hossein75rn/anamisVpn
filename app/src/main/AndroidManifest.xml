@@ -51,14 +51,6 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-<!--                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>-->
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
-            </intent-filter>
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -81,8 +73,15 @@
             android:exported="false"
             android:name=".ui.ScannerActivity" />
         <activity
-            android:exported="false"
-            android:name=".ui.LogcatActivity" />
+            android:exported="true"
+            android:name=".ui.LoginActivity"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <!--                <category android:name="android.intent.category.LEANBACK_LAUNCHER"/>-->
+            </intent-filter>
+        </activity>
         <activity
             android:exported="false"
             android:name=".ui.RoutingSettingsActivity"
@@ -127,9 +126,7 @@
                 <data android:host="install-sub"/>
             </intent-filter>
         </activity>
-        <activity
-            android:exported="false"
-            android:name=".ui.AboutActivity" />
+
 
         <service
             android:name=".service.V2RayVpnService"

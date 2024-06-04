@@ -70,7 +70,7 @@ android {
                 else
                     "all"
 
-                output.outputFileName = "v2rayNG_${variant.versionName}_${abi}.apk"
+                output.outputFileName = "AnamisVPN_${variant.versionName}_${abi}.apk"
                 if(versionCodes.containsKey(abi))
                 {
                     output.versionCodeOverride = (1000000 * versionCodes[abi]!!).plus(variant.versionCode)
@@ -129,4 +129,15 @@ dependencies {
 
     implementation("androidx.work:work-runtime-ktx:2.8.1")
     implementation("androidx.work:work-multiprocess:2.8.1")
+
+    // circle image view
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    //retrofit and Gson
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.github.tbruyelle:rxpermissions:0.12")
+    implementation("com.github.FlodCoding:LoadingButton:1.1.0-alpha01")
+    implementation("com.airbnb.android:lottie:3.4.0")
+    // loading
+    implementation("com.kaopiz:kprogresshud:1.0.2")
 }
