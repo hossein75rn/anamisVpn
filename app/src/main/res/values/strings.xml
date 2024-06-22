@@ -263,6 +263,8 @@
     <string name="password">کلمه عبور</string>
     <string name="signin">ورود</string>
     <string name="phone">شماره تلفن</string>
+    <string name="name">نام : </string>
+    <string name="month_not_paid">ماه پرداخت نشده</string>
 
     <string-array name="share_method">
         <item>QRcode</item>

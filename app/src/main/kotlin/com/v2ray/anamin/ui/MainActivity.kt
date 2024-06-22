@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
+import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,14 +21,19 @@ import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.navigation.NavigationView
+import androidx.transition.Visibility
+import com.kaopiz.kprogresshud.KProgressHUD
 import com.tbruyelle.rxpermissions.RxPermissions
 import com.tencent.mmkv.MMKV
 import com.v2ray.anamin.AppConfig
 import com.v2ray.anamin.AppConfig.ANG_PACKAGE
 import com.v2ray.anamin.R
+import com.v2ray.anamin.data.RetrofitInstance
+import com.v2ray.anamin.data.api.ApiService
+import com.v2ray.anamin.data.model.VpnConfigs
+import com.v2ray.anamin.data.utils.storeStringPreference
 import com.v2ray.anamin.databinding.ActivityMainBinding
-import com.v2ray.anamin.dto.EConfigType
+import com.v2ray.anamin.dto.ExtraInfo
 import com.v2ray.anamin.extension.toast
 import com.v2ray.anamin.helper.SimpleItemTouchHelperCallback
 import com.v2ray.anamin.service.V2RayServiceManager
@@ -38,6 +44,9 @@ import com.v2ray.anamin.viewmodel.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.drakeet.support.toast.ToastCompat
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import java.io.File
@@ -45,8 +54,8 @@ import java.io.FileOutputStream
 import java.util.concurrent.TimeUnit
 
 class MainActivity : BaseActivity() {
+    private var loading: KProgressHUD? = null
     private lateinit var binding: ActivityMainBinding
-
     private val adapter by lazy { MainRecyclerAdapter(this) }
     private val mainStorage by lazy { MMKV.mmkvWithID(MmkvManager.ID_MAIN, MMKV.MULTI_PROCESS_MODE) }
     private val settingsStorage by lazy { MMKV.mmkvWithID(MmkvManager.ID_SETTING, MMKV.MULTI_PROCESS_MODE) }
@@ -55,16 +64,21 @@ class MainActivity : BaseActivity() {
             startV2Ray()
         }
     }
+    private var storeData: storeStringPreference? = null
     private var mItemTouchHelper: ItemTouchHelper? = null
     val mainViewModel: MainViewModel by viewModels()
-
+    private var api: ApiService? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        title = getString(R.string.title_server)
-
+        //title = getString(R.string.title_server)
+        init()
+        binding.tvName.text = readSharedP("fullName")
+        binding.tvPhone.text = readSharedP("phone")
+        binding.tvPayment.text = readSharedP("payment").toString()
+        loading?.show()
         binding.fab.setOnClickListener {
             if (mainViewModel.isRunning.value == true) {
                 Utils.stopVService(this)
@@ -78,6 +92,10 @@ class MainActivity : BaseActivity() {
             } else {
                 startV2Ray()
             }
+        }
+        binding.btnRequestConfigs.setOnClickListener {
+            it.visibility = View.GONE
+            getNewConfigs()
         }
         binding.layoutTest.setOnClickListener {
             if (mainViewModel.isRunning.value == true) {
@@ -120,8 +138,93 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
+        MmkvManager.removeAllServer()
+        getNewConfigs()
     }
 
+    private fun readSharedP(sp:String): String? {
+        val sh = storeData?.read(sp);
+        if (sh != null && sh.length > 0) {
+            return sh
+        }
+        return "";
+    }
+
+    private fun getNewConfigs() {
+        api?.config(readSharedP("uuid"))?.enqueue(object : Callback<VpnConfigs?> {
+            override fun onResponse(call: Call<VpnConfigs?>, response: Response<VpnConfigs?>) {
+
+                loading!!.dismiss()
+                binding.btnRequestConfigs.visibility = View.VISIBLE
+                if (response.body() != null) {
+                    val responseS: VpnConfigs? = response.body()
+                    if (responseS != null) {
+                        if (responseS.status.equals("success", ignoreCase = true)) {
+                            var totalG:Double = 0.0
+                            var day:String =""
+                            var tg:String=""
+                            toastResult(responseS.message)
+                            responseS.xconfigs.forEach {
+                                val exInfo = ExtraInfo()
+                                exInfo.up = it.client.up
+                                exInfo.down = it.client.down
+                                totalG += exInfo.sumUpAndDown()
+                                if (day=="")
+                                    day=it.client.expiryTime
+                                if (tg=="")
+                                    tg=it.client.totalGB
+                                importBatchConfig(it.link)
+                            }
+                            responseS.sconfigs.forEach{
+                                val exInfo = ExtraInfo()
+                                exInfo.up = "0 KB"
+                                exInfo.down = "0 KB"
+                                importBatchConfig(it)
+                            }
+                            val exInfo = ExtraInfo()
+                            binding.tvGig.text = exInfo.sumUpAndDownFormat(totalG)+"/"+tg
+                            binding.tvDays.text = day
+                            if (day== "0"){
+                                //binding.fab.hide()
+                            }else if (tg.toDouble() <= totalG){
+                                binding.tvGig.setTextColor(resources.getColor(R.color.colorPingRed))
+                                binding.fab.hide()
+                            }
+                        } else if (responseS.status
+                                .equals("failed", ignoreCase = true)) {
+
+                        }else if (responseS.status.equals("error")){
+
+                        }else {
+                            toastResult("خطای ")
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<VpnConfigs?>, t: Throwable) {
+                toastResult("اینترنت مشکل دارد")
+                loading!!.dismiss()
+                binding.btnRequestConfigs.visibility = View.VISIBLE
+            }
+        })
+    }
+
+    private fun init(){
+
+        api = RetrofitInstance.Instance().create<ApiService>(ApiService::class.java)
+        loading = KProgressHUD.create(this@MainActivity)
+            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+            .setLabel("در حال دریافت کانفیگ ها")
+            .setCancellable(false)
+            .setAnimationSpeed(2)
+            .setDimAmount(0.5f)
+
+        storeData = storeStringPreference(this)
+    }
+    private fun toastResult(responseS: String) {
+        Toast.makeText(this@MainActivity, responseS, Toast.LENGTH_SHORT).show()
+    }
     private fun setupViewModel() {
         mainViewModel.updateListAction.observe(this) { index ->
             if (index >= 0) {

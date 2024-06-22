@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
     private var api: ApiService? = null
 
     private var loading: KProgressHUD? = null
-    private var storeUUid: storeStringPreference? = null
+    private var storeData: storeStringPreference? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,15 +53,20 @@ class LoginActivity : AppCompatActivity() {
                 if (response.body() != null) {
                     val responseS: Login? = response.body()
                     if (responseS != null) {
-                        if (responseS.getStatus().equals(responseS.statusFailed, ignoreCase = true)) {
-                            toastResult(responseS.getMessage())
-                            view.isClickable = true
-                        } else if (responseS.getStatus()
-                                .equals(responseS.statusSuccess, ignoreCase = true)
-                        ) {
-                            storeUUid?.save("uuid", responseS.getUuid())
+                        if (responseS.status.equals("success", ignoreCase = true)) {
+                            //toastResult(responseS.message)
+                            storeData?.save("uuid", responseS.uuid)
+                            storeData?.save("fullName",responseS.fullName)
+                            storeData?.save("payment",responseS.leftPayments.toString())
+                            storeData?.save("phone",userName)
                             startConfigActivity()
-                        } else {
+                        } else if (responseS.status
+                                .equals("failed", ignoreCase = true)) {
+                            responeNoteSucces(responseS, view)
+                        }else if (responseS.status.equals("error")){
+                            responeNoteSucces(responseS,view)
+                        }else {
+                            view.isClickable = true
                             toastResult("خطای ناشناخته ای رخ داد")
                         }
                     }
@@ -70,9 +75,16 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<Login?>, t: Throwable) {
                 Log.w(TAG, "onFailure: ", t)
-                toastResult("خطای اینترنت")
+                toastResult("اینترنت یا سرور در دسترس نیست")
+                loading!!.dismiss()
+                view.isClickable = true
             }
         })
+    }
+
+    private fun responeNoteSucces(responseS: Login, view: View) {
+        toastResult(responseS.message)
+        view.isClickable = true
     }
 
     private fun toastResult(responseS: String) {
@@ -92,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        storeUUid = storeStringPreference(this)
+        storeData = storeStringPreference(this)
         checkIfSharedPreferenceIsSet()
         etUserName = findViewById(R.id.etUserName)
         etPassword = findViewById(R.id.etPassword)
@@ -106,7 +118,7 @@ class LoginActivity : AppCompatActivity() {
             .setDimAmount(0.5f)
     }
     private fun checkIfSharedPreferenceIsSet() {
-        val sh = storeUUid?.read("uuid");
+        val sh = storeData?.read("uuid");
         if (sh != null && sh.length > 2) {
             startConfigActivity()
         }

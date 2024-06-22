@@ -8,3 +8,5 @@
 *.apk
 signing.properties
 *.aar
+app/release/output-metadata.json
+app/release/output-metadata.json

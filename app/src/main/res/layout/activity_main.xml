@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +11,147 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:orientation="vertical"
+            >
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:orientation="horizontal"
+                        >
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/person"
 
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_name"
+                            android:textSize="15sp"
+                            android:text="نام"
+                            android:layout_weight="1"
+                            />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:textSize="20sp"
+                            android:layout_marginEnd="20dp"
+                            android:src="@drawable/phone" />
+
+                        <TextView
+                            android:id="@+id/tv_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="20dp"
+                            android:text="@string/phone"
+                            android:textSize="15sp" />
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        >
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/payment"
+                            android:textSize="20sp"/>
+
+                        <TextView
+                            android:id="@+id/tv_payment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/month_not_paid"
+                            android:textSize="15sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+                    <ImageView
+                        android:id="@+id/image_view_gig"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_margin="20dp"
+                        android:src="@drawable/gigabyte"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_gig"
+                        android:textSize="15sp"
+                        android:text="گیک"
+                        app:layout_constraintTop_toTopOf="@+id/image_view_gig"
+                        app:layout_constraintBottom_toBottomOf="@id/image_view_gig"
+                        app:layout_constraintEnd_toStartOf="@id/image_view_gig"
+                        />
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/image_view_days"
+                        android:textSize="20sp"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/days"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_gig"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_gig"
+                        app:layout_constraintTop_toTopOf="@+id/tv_gig" />
+
+                    <TextView
+                        android:id="@+id/tv_days"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:text="روز"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/image_view_days"
+                        app:layout_constraintEnd_toStartOf="@+id/image_view_days"
+                        app:layout_constraintTop_toTopOf="@+id/image_view_days"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -60,27 +201,45 @@
 
                 <FrameLayout
                     android:id="@+id/fabProgressCircle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
                     android:layout_marginBottom="24dp">
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fab"
-                        android:layout_width="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_gravity="bottom|end"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="16dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:nextFocusLeft="@+id/layout_test"
-                        android:src="@drawable/ic_stat_name"
-                        app:layout_anchorGravity="bottom|right|end" />
+                        android:orientation="horizontal"
+                        >
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/fab"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:nextFocusLeft="@+id/layout_test"
+                            android:src="@drawable/ic_stat_name"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:id="@+id/btnRequestConfigs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:padding="15dp"
+                            android:text="دریافت کانقیگ ها"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </FrameLayout>
             </androidx.coordinatorlayout.widget.CoordinatorLayout>

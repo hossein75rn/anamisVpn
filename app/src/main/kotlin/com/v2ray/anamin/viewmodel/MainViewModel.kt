@@ -22,6 +22,7 @@ import com.v2ray.anamin.AppConfig.ANG_PACKAGE
 import com.v2ray.anamin.R
 import com.v2ray.anamin.databinding.DialogConfigFilterBinding
 import com.v2ray.anamin.dto.EConfigType
+import com.v2ray.anamin.dto.ExtraInfo
 import com.v2ray.anamin.dto.ServerConfig
 import com.v2ray.anamin.dto.ServersCache
 import com.v2ray.anamin.dto.V2rayConfig

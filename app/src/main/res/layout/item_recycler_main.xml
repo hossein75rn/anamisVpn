@@ -11,8 +11,9 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="1dp"
-        app:cardCornerRadius="5dp">
+        android:layout_margin="10dp"
+        app:cardCornerRadius="5dp"
+        >
 
         <LinearLayout
             android:id="@+id/info_container"
@@ -109,7 +110,9 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    >
 
                     <LinearLayout
                         android:id="@+id/layout_share"
