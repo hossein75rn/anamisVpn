@@ -184,12 +184,6 @@ class MainActivity : BaseActivity() {
                             val exInfo = ExtraInfo()
                             binding.tvGig.text = exInfo.sumUpAndDownFormat(totalG)+"/"+tg
                             binding.tvDays.text = day
-                            if (day== "0"){
-                                //binding.fab.hide()
-                            }else if (tg.toDouble() <= totalG){
-                                binding.tvGig.setTextColor(resources.getColor(R.color.colorPingRed))
-                                binding.fab.hide()
-                            }
                         } else if (responseS.status
                                 .equals("failed", ignoreCase = true)) {
 
