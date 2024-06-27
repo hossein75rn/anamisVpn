@@ -54,7 +54,7 @@ import java.io.FileOutputStream
 import java.util.concurrent.TimeUnit
 
 class MainActivity : BaseActivity() {
-    private var loading: KProgressHUD? = null
+    //private var loading: KProgressHUD? = null
     private lateinit var binding: ActivityMainBinding
     private val adapter by lazy { MainRecyclerAdapter(this) }
     private val mainStorage by lazy { MMKV.mmkvWithID(MmkvManager.ID_MAIN, MMKV.MULTI_PROCESS_MODE) }
@@ -78,7 +78,7 @@ class MainActivity : BaseActivity() {
         binding.tvName.text = readSharedP("fullName")
         binding.tvPhone.text = readSharedP("phone")
         binding.tvPayment.text = readSharedP("payment").toString()
-        loading?.show()
+        //loading?.show()
         binding.fab.setOnClickListener {
             if (mainViewModel.isRunning.value == true) {
                 Utils.stopVService(this)
@@ -138,7 +138,7 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
-        MmkvManager.removeAllServer()
+
         getNewConfigs()
     }
 
@@ -154,12 +154,13 @@ class MainActivity : BaseActivity() {
         api?.config(readSharedP("uuid"))?.enqueue(object : Callback<VpnConfigs?> {
             override fun onResponse(call: Call<VpnConfigs?>, response: Response<VpnConfigs?>) {
 
-                loading!!.dismiss()
+                //loading!!.dismiss()
                 binding.btnRequestConfigs.visibility = View.VISIBLE
                 if (response.body() != null) {
                     val responseS: VpnConfigs? = response.body()
                     if (responseS != null) {
                         if (responseS.status.equals("success", ignoreCase = true)) {
+                            MmkvManager.removeAllServer()
                             var totalG:Double = 0.0
                             var day:String =""
                             var tg:String=""
@@ -198,7 +199,7 @@ class MainActivity : BaseActivity() {
 
             override fun onFailure(call: Call<VpnConfigs?>, t: Throwable) {
                 toastResult("اینترنت مشکل دارد")
-                loading!!.dismiss()
+                //loading!!.dismiss()
                 binding.btnRequestConfigs.visibility = View.VISIBLE
             }
         })
@@ -207,12 +208,6 @@ class MainActivity : BaseActivity() {
     private fun init(){
 
         api = RetrofitInstance.Instance().create<ApiService>(ApiService::class.java)
-        loading = KProgressHUD.create(this@MainActivity)
-            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-            .setLabel("در حال دریافت کانفیگ ها")
-            .setCancellable(false)
-            .setAnimationSpeed(2)
-            .setDimAmount(0.5f)
 
         storeData = storeStringPreference(this)
     }
