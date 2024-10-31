@@ -244,7 +244,7 @@
     <string name="routing_settings_scan_append">Scan and append</string>
     <string name="routing_settings_default_rules"> set default routing rules</string>
 
-    <string name="connection_test_pending">Check Connectivity</string>
+    <string name="connection_test_pending">تست اتصال</string>
     <string name="connection_test_testing">Testing…</string>
     <string name="connection_test_available">Success: HTTP connection took %dms</string>
     <string name="connection_test_error">Fail to detect internet connection: %s</string>
@@ -265,6 +265,10 @@
     <string name="phone">شماره تلفن</string>
     <string name="name">نام : </string>
     <string name="month_not_paid">ماه پرداخت نشده</string>
+    <string name="getConfigs">دریافت کانقیگ ها</string>
+    <string name="stats">آمار</string>
+    <string name="getConfigsORSeeData">"مشاهده اطلاعات "</string>
+    <string name="windy">windy</string>
 
     <string-array name="share_method">
         <item>QRcode</item>

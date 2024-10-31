@@ -13,4 +13,8 @@
     <color name="splash">#FFC107</color>
     <color name="splash_light">#72FFC107</color>
     <color name="black">#111010</color>
+    <color name="blue">#03A9F4</color>
+    <color name="red">#DE0C53</color>
+    <color name="purple">#673AB7</color>
+    <color name="orange">#FF9800</color>
 </resources>

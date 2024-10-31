@@ -1,6 +1,7 @@
 package com.v2ray.anamin.data.api;
 
 
+import com.v2ray.anamin.data.model.ConfigSuccess;
 import com.v2ray.anamin.data.model.Login;
 import com.v2ray.anamin.data.model.VpnConfigs;
 
@@ -16,5 +17,5 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("config.php")
-    Call<VpnConfigs> config(@Field("uuid") String uuid);
+    Call<ConfigSuccess> config(@Field("uuid") String uuid, @Field("username") String username);
 }

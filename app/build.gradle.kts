@@ -11,8 +11,8 @@ android {
         applicationId = "com.v2ray.anamin"
         minSdk = 21
         targetSdk = 34
-        versionCode = 562
-        versionName = "1.0.3"
+        versionCode = 565
+        versionName = "2.0"
         multiDexEnabled = true
         splits.abi {
             reset()
@@ -140,4 +140,9 @@ dependencies {
     implementation("com.airbnb.android:lottie:3.4.0")
     // loading
     implementation("com.kaopiz:kprogresshud:1.0.2")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.github.iwgang:countdownview:2.1.6")
+    implementation ("com.mikhaellopez:circularprogressbar:3.1.0")
 }

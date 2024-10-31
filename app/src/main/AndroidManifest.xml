@@ -57,6 +57,9 @@
         </activity>
         <activity
             android:exported="false"
+            android:name=".ui.StatsActivity" />
+        <activity
+            android:exported="false"
             android:name=".ui.ServerActivity"
             android:windowSoftInputMode="stateUnchanged" />
         <activity
@@ -191,6 +194,16 @@
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="tile" />
         </service>
+
+        <service
+            android:name=".service.DnsService"
+            android:permission="android.permission.BIND_VPN_SERVICE"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
+
         <!-- =====================Tasker===================== -->
         <activity
             android:exported="true"

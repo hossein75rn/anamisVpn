@@ -8,7 +8,7 @@ public class RetrofitInstance {
     public static Retrofit Instance(){
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://v.anamin.ir/api/v1/")
+                .baseUrl("http://v.anamin.ir/api/v2/")
                 .build();
     }
 }

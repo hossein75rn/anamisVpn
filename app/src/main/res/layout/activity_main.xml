@@ -10,145 +10,185 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:orientation="vertical"
             >
             <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 >
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
                         >
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/person"
-
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/layout_name"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tv_name"
-                            android:textSize="15sp"
-                            android:text="نام"
-                            android:layout_weight="1"
-                            />
+                            android:padding="10dp"
+                            android:gravity="center"
+                            >
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/person"
 
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:textSize="20sp"
-                            android:layout_marginEnd="20dp"
-                            android:src="@drawable/phone" />
+                                />
 
-                        <TextView
-                            android:id="@+id/tv_phone"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/tv_name"
+                                android:textSize="12sp"
+                                android:text="نام"
+                                android:layout_weight="1"
+                                />
+
+
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="20dp"
-                            android:text="@string/phone"
-                            android:textSize="15sp" />
+                            android:padding="10dp"
+                            android:gravity="center"
+                            >
 
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:textSize="20sp"
+                                android:layout_marginEnd="20dp"
+                                android:src="@drawable/phone" />
 
+                            <TextView
+                                android:id="@+id/tv_phone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="20dp"
+                                android:text="@string/phone"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            >
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/payment"
+                                android:textSize="20sp"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_payment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15sp"/>
+
+                            <TextView
+                                android:id="@+id/tv_not_paid"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/month_not_paid"
+                                android:textSize="12sp"/>
+                        </LinearLayout>
                     </LinearLayout>
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:padding="5dp"
                         >
 
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:src="@drawable/payment"
-                            android:textSize="20sp"/>
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
-                        <TextView
-                            android:id="@+id/tv_payment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="15sp"/>
+                            <TextView
+                                android:id="@+id/tv_leftData"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="@id/DataProgressBar"
+                                app:layout_constraintEnd_toEndOf="@+id/DataProgressBar"
+                                app:layout_constraintStart_toStartOf="@id/DataProgressBar"
+                                app:layout_constraintTop_toTopOf="@id/DataProgressBar"
+                                android:textSize="25sp"
+                                />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/month_not_paid"
-                            android:textSize="15sp"/>
+                            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                                android:id="@+id/DataProgressBar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:cpb_background_progressbar_color="@color/blue"
+                                app:cpb_background_progressbar_width="15dp"
+                                app:cpb_progressbar_color="@color/red"
+                                app:cpb_progressbar_width="15dp"
+                                app:cpb_progress_direction="to_left"
+                                app:cpb_round_border="false"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 >
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp">
-                    <ImageView
-                        android:id="@+id/image_view_gig"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_margin="10dp"
-                        android:src="@drawable/gigabyte"
-                        android:textSize="20sp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:padding="20dp"
+                    >
+
+                    <cn.iwgang.countdownview.CountdownView
+                        android:id="@+id/counterWang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        app:isHideTimeBackground="true"
+                        app:isShowDay="true"
+                        app:isShowHour="true"
+                        app:isShowMinute="true"
+                        app:isShowSecond="true"
+                        app:isTimeTextBold="true"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tv_gig"
-                        android:textSize="15sp"
-                        android:text="گیک"
-                        android:layout_marginEnd="20dp"
-                        app:layout_constraintTop_toTopOf="@+id/image_view_gig"
-                        app:layout_constraintBottom_toBottomOf="@id/image_view_gig"
-                        app:layout_constraintEnd_toStartOf="@id/image_view_gig"
-                        />
-
-                    <ImageView
-                        android:id="@+id/image_view_days"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:src="@drawable/days"
-                        android:textSize="20sp"
-                        android:layout_marginTop="20dp"
-                        app:layout_constraintEnd_toEndOf="@+id/image_view_gig"
-                        app:layout_constraintTop_toBottomOf="@+id/image_view_gig" />
-
-                    <TextView
-                        android:id="@+id/tv_days"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:text="روز"
-                        android:textSize="15sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/image_view_days"
-                        app:layout_constraintEnd_toStartOf="@+id/image_view_days"
-                        app:layout_constraintTop_toTopOf="@+id/image_view_days"
-                        />
-
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:suffixDay="روز"
+                        app:suffixGravity="bottom"
+                        app:suffixHour="ساعت"
+                        app:suffixMinute="دقیقه"
+                        app:suffixSecond="ثانیه"
+                        app:suffixTextColor="#000000"
+                        app:suffixTextSize="12sp"
+                        app:timeTextColor="#000000"
+                        app:timeTextSize="22sp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
@@ -235,10 +275,12 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             android:padding="15dp"
-                            android:text="دریافت کانقیگ ها"
+                            android:text="@string/getConfigsORSeeData"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </FrameLayout>
