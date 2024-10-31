@@ -39,7 +39,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
-                            android:gravity="center"
+                            android:gravity="center_vertical"
                             >
                             <ImageView
                                 android:layout_width="30dp"
@@ -49,12 +49,11 @@
                                 />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/tv_name"
                                 android:textSize="12sp"
                                 android:text="نام"
-                                android:layout_weight="1"
                                 />
 
 
@@ -64,7 +63,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
-                            android:gravity="center"
+                            android:gravity="center_vertical"
                             >
 
                             <ImageView
@@ -76,12 +75,12 @@
 
                             <TextView
                                 android:id="@+id/tv_phone"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginEnd="20dp"
                                 android:text="@string/phone"
-                                android:textSize="12sp" />
+                                android:textSize="12sp"
+                                android:layout_gravity="center_vertical"
+                                />
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -104,7 +103,7 @@
 
                             <TextView
                                 android:id="@+id/tv_not_paid"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@string/month_not_paid"
                                 android:textSize="12sp"/>
