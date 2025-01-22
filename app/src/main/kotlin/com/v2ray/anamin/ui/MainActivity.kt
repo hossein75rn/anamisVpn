@@ -83,12 +83,12 @@ class MainActivity : BaseActivity() {
         setContentView(view)
         //title = getString(R.string.title_server)
         init()
+
         binding.tvName.text = readSharedP("fullName")
         binding.tvPhone.text = readSharedP("phone")
         binding.tvPayment.text = readSharedP("payment").toString()
         val userStatus = readSharedPeInt("user_status")
         checkUserStatus(userStatus?:1)
-
         binding.fab.setOnClickListener {
             if (mainViewModel.isRunning.value == true) {
                 Utils.stopVService(this)
@@ -123,7 +123,6 @@ class MainActivity : BaseActivity() {
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
-
         val callback = SimpleItemTouchHelperCallback(adapter)
         mItemTouchHelper = ItemTouchHelper(callback)
         mItemTouchHelper?.attachToRecyclerView(binding.recyclerView)
@@ -152,7 +151,8 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
-
+        val countDown = mainStorage.getLong(,0L)
+        startCountDown(countDown)
         getNewConfigs()
     }
 
@@ -238,7 +238,7 @@ class MainActivity : BaseActivity() {
                     val totalData = xuiConfigZero?.totalGB?:0
                     if(countDown > 0){
                         countDown = getTimeDifference(countDown)
-                        binding.counterWang.start(countDown)
+                        startCountDown(countDown)
                     }else {
                         countDown = countDown.absoluteValue
                         binding.counterWang.updateShow(countDown)
@@ -324,6 +324,10 @@ class MainActivity : BaseActivity() {
                 }
             }
         })
+    }
+
+    private fun startCountDown(countDown:Long) {
+        binding.counterWang.start(countDown)
     }
 
     private fun init(){

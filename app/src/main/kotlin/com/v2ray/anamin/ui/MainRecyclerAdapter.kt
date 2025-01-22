@@ -188,6 +188,7 @@ class MainRecyclerAdapter(val activity: MainActivity) : RecyclerView.Adapter<Mai
         }
     }
 
+
     private fun shareFullContent(guid: String) {
         if (AngConfigManager.shareFullContent2Clipboard(mActivity, guid) == 0) {
             mActivity.toast(R.string.toast_success)
@@ -219,10 +220,13 @@ class MainRecyclerAdapter(val activity: MainActivity) : RecyclerView.Adapter<Mai
         }
     }
 
+
+
     open class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun onItemSelected() {
             itemView.setBackgroundColor(Color.LTGRAY)
         }
+
 
         fun onItemClear() {
             itemView.setBackgroundColor(0)
